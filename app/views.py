@@ -43,3 +43,16 @@ def about(request):
             'year':datetime.now().year,
         }
     )
+
+def links(request):
+    """Renders the links page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/links.html',
+        {
+            'title':'Ссылки',
+            'message':'Ссылки на нас и наши ресурсы',
+            'year':datetime.now().year,
+        }
+    )
