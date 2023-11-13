@@ -1,4 +1,4 @@
-"""
+﻿"""
 Definition of urls for AsiaPskov.
 """
 
@@ -15,6 +15,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('links/', views.links, name='links'),
     path('feedback/', views.feedback, name='feedback'),
+    path('registration/', views.registration, name='registration'),
     path('login/',
          LoginView.as_view
          (
@@ -22,7 +23,7 @@ urlpatterns = [
              authentication_form=forms.BootstrapAuthenticationForm,
              extra_context=
              {
-                 'title': 'Log in',
+                 'title': 'Авторизация',
                  'year' : datetime.now().year,
              }
          ),
