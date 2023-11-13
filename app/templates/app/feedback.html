@@ -1,0 +1,37 @@
+{% extends "app/layout.html" %}
+{% load static %}
+{% block content %}
+{% if form != None %}
+<br>
+<h2>Отправьте пожалуйста заполненную анкету</h2>
+<br>
+<div>
+    <form method="post">
+        {% csrf_token %}
+        <label for="{{ form.name.id_for_label }}">{{ form.name.label}}:</label>
+        {{ form.name }} <br /><br />
+        <label for="{{ form.gender.id_for_label }}">{{ form.gender.label}}:</label>
+        {{ form.gender }} <br /><br />
+        <label for="{{ form.notice.id_for_label }}">{{ form.notice.label}}:</label>
+        {{ form.notice }} <br /><br />
+        <label for="{{ form.delivery.id_for_label }}">{{ form.delivery.label}}:</label>
+        {{ form.delivery }} <br /><br />
+        <label for="{{ form.message.id_for_label }}">{{ form.message.label}}:</label>
+        {{ form.message }} <br /><br />
+        <input id="sub" type="submit" value="Отправить" />
+    </form>
+</div>
+{% else %}
+<br>
+<h2>Благодарим за предотавленную информацию!</h2>
+<h3>Вы сообщили о себе следущее:</h3>
+<ul>
+    <li><span>Имя:</span> {{ data.name }}</li>
+    <li><span>Пол:</span> {{ data.gender }}</li>
+    <li><span>Ваше мнение по поводу нашего ассортимента:</span> {{ data.notice }}</li>
+    <li><span>О доставке:</span> {{ data.delivery }}</li>
+    <li><span>Ваши замечание или советы:</span> {{ data.message }}</li>
+</ul>
+
+{% endif %}
+{% endblock %}
