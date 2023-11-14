@@ -57,6 +57,10 @@
     <Folder Include="AsiaPskov\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\app\content\banner1.png" />
+    <Content Include="app\static\app\content\banner2.png" />
+    <Content Include="app\static\app\content\banner3.png" />
+    <Content Include="app\static\app\content\banner4.png" />
     <Content Include="app\static\app\content\Логотип3.png" />
     <Content Include="app\templates\app\blog.html" />
     <Content Include="app\templates\app\blogpost.html" />
