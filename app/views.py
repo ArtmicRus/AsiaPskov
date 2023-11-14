@@ -7,6 +7,8 @@ from django.http import HttpRequest
 from .forms import FeedbackForm
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+from django.db import models
+from .models import Blog
 
 def home(request):
     """Renders the home page."""
@@ -55,6 +57,33 @@ def links(request):
         {
             'title':'Ссылки',
             'message':'Ссылки на нас и наши ресурсы',
+            'year':datetime.now().year,
+        }
+    )
+
+def blog(request):
+    """Renders the blog page."""
+    assert isinstance(request, HttpRequest)
+    posts = Blog.objects.all() # запрос на выбор всех статей блога из модели
+    return render(
+        request,
+        'app/blog.html',
+        {
+            'title':'Блог',
+            'posts': posts, # передача списка статей в шаблон веб-страницы
+            'year':datetime.now().year,
+        }
+    )
+
+def blogpost(request, parametr):
+    """Renders the blogpost page."""
+    assert isinstance(request, HttpRequest)
+    post_1 = Blog.objects.get(id=parametr) # запрос на выбор конкретной статьи по параметру
+    return render(
+        request,
+        'app/blogpost.html',
+        {
+            'post_1': post_1, # передача конкретной статьи в шаблон веб-страницы
             'year':datetime.now().year,
         }
     )
