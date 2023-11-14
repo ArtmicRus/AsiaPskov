@@ -6,6 +6,8 @@ from email import message
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import gettext_lazy as _
+from django.db import models
+from .models import Comment
 
 class BootstrapAuthenticationForm(AuthenticationForm):
     """Authentication form which uses boostrap CSS."""
@@ -33,3 +35,9 @@ class FeedbackForm(forms.Form):
                                           ('4','Больше 9 раз в месяц')), initial=1)
     message = forms.CharField(label='Напишите ваши замечания или советы для улучшения заведения',
                              widget=forms.Textarea(attrs={'row':12,'cols':20}))
+
+class CommentForm (forms.ModelForm):
+    class Meta:
+        model = Comment # используемая модель
+        fields = ('text',) # требуется заполнить только поле text
+        labels = {'text': "Комментарий"} # метка к полю формы text

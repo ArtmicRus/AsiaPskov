@@ -9,6 +9,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.db import models
 from .models import Blog
+from .models import Comment # использование модели комментариев
+from .forms import CommentForm # использование формы ввода комментария
 
 def home(request):
     """Renders the home page."""
@@ -79,12 +81,26 @@ def blogpost(request, parametr):
     """Renders the blogpost page."""
     assert isinstance(request, HttpRequest)
     post_1 = Blog.objects.get(id=parametr) # запрос на выбор конкретной статьи по параметру
+    comments = Comment.objects.filter(post=parametr)
+    if request.method == "POST": # после отправки данных формы на сервер методом POST
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment_f = form.save(commit=False)
+            comment_f.author = request.user # добавляем (так как этого поля нет в форме) в модель Комментария (Comment) в поле автор авторизованного пользователя
+            comment_f.date = datetime.now() # добавляем в модель Комментария (Comment) текущую дату
+            comment_f.post = Blog.objects.get(id=parametr) # добавляем в модель Комментария (Comment) статью, для которой данный комментарий
+            comment_f.save() # сохраняем изменения после добавления полей
+            return redirect('blogpost', parametr=post_1.id) # переадресация на ту же страницу статьи после отправки комментария
+        else:
+            form = CommentForm() # создание формы для ввода комментария
     return render(
         request,
         'app/blogpost.html',
         {
             'post_1': post_1, # передача конкретной статьи в шаблон веб-страницы
             'year':datetime.now().year,
+            'comments': comments, # передача всех комментариев к данной статье в шаблон веб-страницы
+            'form': form, # передача формы добавления комментария в шаблон веб-страницы
         }
     )
 

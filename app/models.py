@@ -2,6 +2,7 @@
 Definition of models.
 """
 
+from django.contrib.auth.forms import AdminPasswordChangeForm
 from django.db import models
 from django.contrib import admin
 from datetime import datetime
@@ -30,5 +31,23 @@ class Blog(models.Model):
         verbose_name_plural = "статья блога" #Для всех статей
 
 admin.site.register(Blog)
+
+class Comment(models.Model):
+    text = models.TextField(verbose_name="Текст комментария")
+    date = models.DateTimeField(default= datetime.now(), db_index=True, verbose_name= "Дата комментария")
+    author = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = "Автор комментария")
+    post = models.ForeignKey(Blog,on_delete=models.CASCADE, verbose_name= "Статья комментария")
+    # Методы класса:
+    def __str__(self):
+        return 'Комментарий %d %s к %s' % (self.id, self.author, self.post)
+    # Метаданные вложенный класс который задает дополнительные параметры модели:
+    class Meta:
+        db_table = "Comment"
+        ordering = ["-date"]
+        verbose_name = "Комментарии к статье блога"
+        verbose_name_plural = "Комментарии к статьям блога"
+
+admin.site.register(Comment)
+
 
 
