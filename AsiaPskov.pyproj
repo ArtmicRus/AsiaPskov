@@ -47,6 +47,7 @@
   <ItemGroup>
     <Folder Include="app\" />
     <Folder Include="app\migrations\" />
+    <Folder Include="media\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\app\" />
     <Folder Include="app\static\app\content\" />
@@ -57,6 +58,10 @@
     <Folder Include="AsiaPskov\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="media\posterPizza.png" />
+    <Content Include="media\posterSushi.png" />
+    <Content Include="media\Sushi.mp4" />
+    <Content Include="media\Pizza.mp4" />
     <Content Include="app\static\app\content\banner1.png" />
     <Content Include="app\static\app\content\banner2.png" />
     <Content Include="app\static\app\content\banner3.png" />
@@ -66,7 +71,9 @@
     <Content Include="app\templates\app\blogpost.html" />
     <Content Include="app\templates\app\feedback.html" />
     <Content Include="app\templates\app\links.html" />
+    <Content Include="app\templates\app\newpost.html" />
     <Content Include="app\templates\app\registration.html" />
+    <Content Include="app\templates\app\videopost.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

@@ -8,6 +8,9 @@ from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from app import forms, views
 
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf import settings
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -16,6 +19,8 @@ urlpatterns = [
     path('links/', views.links, name='links'),
     path('blog/', views.blog, name='blog'),
     path('blogpost/<int:parametr>/', views.blogpost, name='blogpost'),
+    path('newpost/', views.newpost, name='newpost'),
+    path('videopost/', views.videopost, name='videopost'),
     path('feedback/', views.feedback, name='feedback'),
     path('registration/', views.registration, name='registration'),
     path('login/',
@@ -33,3 +38,6 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('admin/', admin.site.urls),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += staticfiles_urlpatterns()

@@ -2,6 +2,11 @@
 
 {% block content %}
 <h2> {{post_1.title}} </h2>
+
+{% if post_1.image and post_1.image_url != '/media/temp.jpg'%}
+<img src="{{ post_1.image.url }}" alt=" Картинка статьи блога" width="200" />
+{% endif %}
+
 <p> {{post_1.content|linebreaksbr}} </p>      {# вывод текста по абзацам#}
 
 {% if user.is_authenticated %}

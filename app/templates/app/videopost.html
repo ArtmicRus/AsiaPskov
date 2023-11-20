@@ -1,0 +1,17 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h1>{{ title }}</h1>
+<hr />
+<div>
+    <h2>Рецепт пиццы</h2>
+    <video src="/media/Pizza.mp4" controls="controls" width="400" height="300" poster="/media/posterPizza.png"></video>
+</div>
+<hr />
+<div>
+    <h2>Инструкция суши</h2>
+    <video src="/media/Sushi.mp4" controls="controls" width="400" height="300" poster="/media/posterSushi.png"></video>
+</div>
+
+{% endblock %}

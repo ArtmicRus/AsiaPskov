@@ -2,6 +2,7 @@
 Definition of models.
 """
 
+from email.mime import image
 from django.contrib.auth.forms import AdminPasswordChangeForm
 from django.db import models
 from django.contrib import admin
@@ -15,6 +16,7 @@ class Blog(models.Model):
     content = models.TextField(verbose_name="Полное содержание")
     posted = models.DateTimeField(default= datetime.now(), db_index=True, verbose_name="Опубликована")
     author = models.ForeignKey(User, null=True, blank=True, on_delete = models.SET_NULL, verbose_name = "Автор")
+    image = models.FileField(default='temp.jpg', verbose_name = "Путь к картинке")
     
     # Методы класса:
     
