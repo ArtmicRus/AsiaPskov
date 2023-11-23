@@ -26,12 +26,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="{% url 'home' %}">Главная</a></li>
                     <li><a href="{% url 'about' %}">О нас</a></li>
                     <li><a href="{% url 'contact' %}">Контакт</a></li>
                     <li><a href="{% url 'links' %}">Полезные ресурсы</a></li>
                     <li><a href="{% url 'blog' %}">Блог</a></li>
-                    <li><a href="{% url 'feedback' %}">Анкета</a></li>
+                    <li><a href="{% url 'feedback' %}">Обратная связь</a></li>
                     {% if user.is_superuser %}
                     <li><a href="{% url 'newpost' %}">Добавить статью</a></li>
                     {% endif %}
