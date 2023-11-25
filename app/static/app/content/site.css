@@ -42,12 +42,12 @@ input[type="checkbox"].input-validation-error {
 }
 
 h5 {
-    color: aqua;
+    color: navajowhite;
 }
 
 .carousel-img {
-    width: 10%;
-    height: 80%;
+    width: 100%;
+    height: auto;
 }
 
 .content-background {
