@@ -1,7 +1,7 @@
-body {
+/*body {
     padding-top: 50px;
     padding-bottom: 20px;
-}
+}*/
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -43,4 +43,13 @@ input[type="checkbox"].input-validation-error {
 
 h5 {
     color: aqua;
+}
+
+.carousel-img {
+    width: 10%;
+    height: 80%;
+}
+
+.content-background {
+    background: linear-gradient(135deg, #ffffff 1%,#ed2ef7 13%,#ed2ef7 40%,#207cca 69%,#84ebf4 100%);
 }

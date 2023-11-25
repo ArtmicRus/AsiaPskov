@@ -3,14 +3,14 @@
     {% csrf_token %}
     <ul class="nav navbar-nav navbar-right">
         <li><span class="navbar-brand">Здравствуйте {{ user.username }}!</span></li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти из системы</a></li>
+        <li><a class="navbar-brand" href="javascript:document.getElementById('logoutForm').submit()">Выйти из системы</a></li>
     </ul>
 </form>
 
 {% else %}
 
 <ul class="nav navbar-nav navbar-right">
-    <li><a href="{% url 'login' %}">Авторизоваться</a></li>
+    <li><a class="navbar-brand" href="{% url 'login' %}">Авторизоваться</a></li>
 </ul>
 
 {% endif %}

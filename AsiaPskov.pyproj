@@ -47,6 +47,8 @@
   <ItemGroup>
     <Folder Include="app\" />
     <Folder Include="app\migrations\" />
+    <Folder Include="app\static\app\content\NewCss\" />
+    <Folder Include="app\static\app\scripts\NewJs\" />
     <Folder Include="media\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\app\" />
@@ -58,6 +60,8 @@
     <Folder Include="AsiaPskov\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\app\content\NewCss\bootstrap.min.css" />
+    <Content Include="app\static\app\scripts\NewJs\bootstrap.bundle.min.js" />
     <Content Include="media\posterPizza.png" />
     <Content Include="media\posterSushi.png" />
     <Content Include="media\Sushi.mp4" />
@@ -76,8 +80,6 @@
     <Content Include="app\templates\app\videopost.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
-    <Content Include="app\static\app\content\bootstrap.css" />
-    <Content Include="app\static\app\content\bootstrap.min.css" />
     <Content Include="app\static\app\content\site.css" />
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.svg" />
