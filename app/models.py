@@ -52,8 +52,10 @@ class Comment(models.Model):
 admin.site.register(Comment)
 
 class Status(models.Model):
-    status_name = models.CharField(max_length=30, unique_for_date= "posted", verbose_name="Название статуса")
+    status_name = models.CharField(max_length=30, verbose_name="Название статуса")
     
+    def get_absolute_url(self):
+        return reverse("statuses", args=[str(self.id)])
     def __str__(self):
         return self.status_name
 
