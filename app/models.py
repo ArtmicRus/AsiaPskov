@@ -79,13 +79,6 @@ class Order(models.Model):
         verbose_name_plural = "Заказы" 
         
 admin.site.register(Order)
-
-# class Product(models.Model):
-#     name = models.CharField(max_length=50, verbose_name="Название продукта")
-#     description = models.TextField(verbose_name="Краткое описание")
-#     content = models.TextField(verbose_name="Полное описание")
-#     price = models.FloatField(verbose_name = "Итоговая сумма заказа")
-#     image = models.FileField(default='temp.jpg', verbose_name = "Путь к картинке")
     
 class Category(models.Model):
     name = models.CharField(max_length=30, verbose_name="Название категории товаров")
@@ -101,3 +94,20 @@ class Category(models.Model):
         verbose_name_plural = "Категории товаров" 
 
 admin.site.register(Category)
+
+class Product(models.Model):
+    name = models.CharField(max_length=50, verbose_name="Название продукта")
+    description = models.TextField(verbose_name="Краткое описание")
+    price = models.FloatField(verbose_name = "Цена")
+    image = models.FileField(default='temp.jpg', verbose_name = "Путь к картинке")
+    category_id = models.ForeignKey(Category, on_delete = models.CASCADE, verbose_name = "Категория товара")
+    
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "Products"# имя таблицы для модели
+        verbose_name = "Товар" 
+        verbose_name_plural = "Список товаров" 
+        
+admin.site.register(Product)
