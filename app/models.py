@@ -51,31 +51,31 @@ class Comment(models.Model):
 
 admin.site.register(Comment)
 
-class OrderStatus(models.Model):
+class Status(models.Model):
     status_name = models.CharField(max_length=30, unique_for_date= "posted", verbose_name="Название статуса")
     
     def __str__(self):
         return self.status_name
 
     class Meta:
-        db_table = "OrderStatuses"# имя таблицы для модели
+        db_table = "Statuses"# имя таблицы для модели
         verbose_name = "Статус заказа" 
         verbose_name_plural = "Статусы заказа" 
         
-admin.site.register(OrderStatus)
+admin.site.register(Status)
 
-class Order(models.Model):
-    user_id = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = "Покупатель")
-    date = models.DateTimeField(default= datetime.now(), db_index=True, verbose_name= "Дата заказа")
-    order_status = models.ForeignKey(OrderStatus, on_delete = models.CASCADE, verbose_name = "Статус заказа")
-    total_price = models.FloatField(verbose_name = "Итоговая сумма заказа")
+# class Order(models.Model):
+#     user_id = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = "Покупатель")
+#     date = models.DateTimeField(default= datetime.now(), db_index=True, verbose_name= "Дата заказа")
+#     order_status = models.ForeignKey(Status, on_delete = models.CASCADE, verbose_name = "Статус заказа")
+#     total_price = models.FloatField(verbose_name = "Итоговая сумма заказа")
     
-    class Meta:
-        db_table = "OrderStatuses"# имя таблицы для модели
-        ordering = ["date"]
-        verbose_name = "Статус заказа" 
-        verbose_name_plural = "Статусы заказа" 
+#     class Meta:
+#         db_table = "OrderStatuses"# имя таблицы для модели
+#         ordering = ["date"]
+#         verbose_name = "Статус заказа" 
+#         verbose_name_plural = "Статусы заказа" 
         
-admin.site.register(Order)
+# admin.site.register(Order)
 
 
