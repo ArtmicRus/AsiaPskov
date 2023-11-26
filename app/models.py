@@ -30,7 +30,7 @@ class Blog(models.Model):
         db_table = "Posts"# имя таблицы для модели
         ordering = ["-posted"] # Порядок сортировки данных в модели (- это убывание)
         verbose_name = "статья блога" #Имя которое будет отображаться в администратимном разделе (для одной статьи)
-        verbose_name_plural = "статья блога" #Для всех статей
+        verbose_name_plural = "статьи блога" #Для всех статей
 
 admin.site.register(Blog)
 
@@ -51,5 +51,31 @@ class Comment(models.Model):
 
 admin.site.register(Comment)
 
+class OrderStatus(models.Model):
+    status_name = models.CharField(max_length=30, unique_for_date= "posted", verbose_name="Название статуса")
+    
+    def __str__(self):
+        return self.status_name
+
+    class Meta:
+        db_table = "OrderStatuses"# имя таблицы для модели
+        verbose_name = "Статус заказа" 
+        verbose_name_plural = "Статусы заказа" 
+        
+admin.site.register(OrderStatus)
+
+class Order(models.Model):
+    user_id = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = "Покупатель")
+    date = models.DateTimeField(default= datetime.now(), db_index=True, verbose_name= "Дата заказа")
+    order_status = models.ForeignKey(OrderStatus, on_delete = models.CASCADE, verbose_name = "Статус заказа")
+    total_price = models.FloatField(verbose_name = "Итоговая сумма заказа")
+    
+    class Meta:
+        db_table = "OrderStatuses"# имя таблицы для модели
+        ordering = ["date"]
+        verbose_name = "Статус заказа" 
+        verbose_name_plural = "Статусы заказа" 
+        
+admin.site.register(Order)
 
 
