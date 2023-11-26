@@ -100,3 +100,4 @@ class Category(models.Model):
         verbose_name = "Категория товара" 
         verbose_name_plural = "Категории товаров" 
 
+admin.site.register(Category)
