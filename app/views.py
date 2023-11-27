@@ -14,6 +14,9 @@ from .models import Blog
 from .models import Comment # использование модели комментариев
 from .forms import CommentForm # использование формы ввода комментария
 
+from .models import Category
+from .models import Product
+
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
@@ -205,6 +208,28 @@ def registration(request):
         'app/registration.html',
         {
             'regform': regform, # передача формы в шаблон веб-страницы
+            'year':datetime.now().year,
+        }
+    )
+
+def category(request, categoryName):
+    """Renders the category page."""
+    assert isinstance(request, HttpRequest)
+    categories = Category.objects.all() # запрос на выбор всех статей блога из модели
+    products = Product.objects.all()
+    
+    if request.method == "GET": # после отправки данных формы на сервер методом POST
+        category = Category.objects.get(name = categoryName)
+        products = Product.get(category_id = category)
+        
+    return render(
+        request,
+        'app/category.html',
+        {
+            'title':'Меню',
+            'message':'Каталог самый вкусных суши',
+            'categories':categories,
+            'products':products,
             'year':datetime.now().year,
         }
     )

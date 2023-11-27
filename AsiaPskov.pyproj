@@ -61,7 +61,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\static\app\content\NewCss\bootstrap.min.css" />
+    <Content Include="app\static\app\content\Ланч сет.jpg" />
+    <Content Include="app\static\app\content\Софт сет.jpg" />
     <Content Include="app\static\app\scripts\NewJs\bootstrap.bundle.min.js" />
+    <Content Include="app\templates\app\cart.html" />
+    <Content Include="app\templates\app\category.html" />
+    <Content Include="media\banner1.png" />
+    <Content Include="media\banner2.png" />
+    <Content Include="media\banner3.png" />
+    <Content Include="media\banner4.png" />
     <Content Include="media\posterPizza.png" />
     <Content Include="media\posterSushi.png" />
     <Content Include="media\Sushi.mp4" />
@@ -78,6 +86,17 @@
     <Content Include="app\templates\app\newpost.html" />
     <Content Include="app\templates\app\registration.html" />
     <Content Include="app\templates\app\videopost.html" />
+    <Content Include="media\Васаби.jpg" />
+    <Content Include="media\ГРИН_БРИЗИ.jpg" />
+    <Content Include="media\Имбирь.jpg" />
+    <Content Include="media\ЛАНЧ_СЕТ.jpg" />
+    <Content Include="media\Окей.jpg" />
+    <Content Include="media\Охотничья.jpg" />
+    <Content Include="media\СоевыйСоус.jpg" />
+    <Content Include="media\Софт_сет.jpg" />
+    <Content Include="media\Тенси.jpg" />
+    <Content Include="media\ФИРМЕННАЯ.jpg" />
+    <Content Include="media\Хочу_ролл.jpg" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\site.css" />
