@@ -111,3 +111,17 @@ class Product(models.Model):
         verbose_name_plural = "Список товаров" 
         
 admin.site.register(Product)
+
+class OrderItem(models.Model):
+    order_id = models.ForeignKey(Order, on_delete = models.CASCADE, verbose_name = "Заказ")
+    product_id = models.ForeignKey(Product, on_delete = models.CASCADE, verbose_name = "Товар")
+    price_quantity = models.FloatField(verbose_name = "Цена за количество")
+    quantity = models.IntegerField(verbose_name = "Количество")
+    
+    class Meta:
+        db_table = "OrderItems" # имя таблицы для модели
+        ordering = ["order_id"] # Сортировка по Id заказа
+        verbose_name = "Товар в заказе" 
+        verbose_name_plural = "Товары в заказе" 
+        
+admin.site.register(OrderItem)
