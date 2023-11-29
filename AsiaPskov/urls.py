@@ -13,6 +13,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 
 urlpatterns = [
+    # Лабы
     path('', views.home, name='home'),
     path('contact/', views.contact, name='contact'),
     path('about/', views.about, name='about'),
@@ -20,8 +21,6 @@ urlpatterns = [
     path('blog/', views.blog, name='blog'),
     path('blogpost/<int:parametr>/', views.blogpost, name='blogpost'),
     path('newpost/', views.newpost, name='newpost'),
-    path('category/', views.category, name='category'),
-    path('category/<string:categoryName>/', views.category, name='category'),
     path('feedback/', views.feedback, name='feedback'),
     path('registration/', views.registration, name='registration'),
     path('login/',
@@ -38,6 +37,21 @@ urlpatterns = [
          name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('admin/', admin.site.urls),
+    
+
+    # Каталог товаров
+    path('catalog/', views.catalog, name='catalog'),
+    path('catalog/<int:cat_id>', views.catalog, name='catalog'),
+    
+
+    # Корзина
+    path('cart/', views.cart, name='cart'),
+    path('add-to-cart/', views.add_to_cart, name='add_to_cart'),
+    path('quantity_minus/', views.quantity_minus, name='quantity_minus'),
+    path('quantity_plus/', views.quantity_plus, name='quantity_plus'),
+    path(r'delete_item/(?P<item>[0-9]+)/', views.delete_item, name='delete_item'),
+    path('total_price/', views.total_price, name='total_price'),
+    path('deal_order/', views.deal_order, name='deal_order'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

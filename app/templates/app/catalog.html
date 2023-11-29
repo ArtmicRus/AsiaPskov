@@ -12,18 +12,12 @@
             <img src=" {% static 'app/content/Ланч сет.jpg'%} " class="d-block img-responsive carousel-block" alt="Slide 1">
             <div class="carousel-caption d-none d-md-block">
                 <h5>Ланч сет</h5>
-                <a class="btn btn-warning" href="blogpost/1/">
-                    Добавить в карзину
-                </a>
             </div>
         </div>
         <div class="carousel-item ">
             <img src=" {% static 'app/content/Софт сет.jpg'%} " class="d-block img-responsive carousel-block" alt="Slide 2">
             <div class="carousel-caption d-none d-md-block">
                 <h5>Софт сет</h5>
-                <a class="btn btn-warning" href="blogpost/3/">
-                    Добавить в карзину
-                </a>
             </div>
         </div>
 
@@ -43,10 +37,23 @@
 <div class="d-flex justify-content-center">
     <div class="row">
 
+        
+        <div class="col-auto">
+            {% if cat_selected == 0 %}
+            <a class="save btn btn-success" href="0"> Все товары </a>
+            {% else %}
+            <a class="save btn btn-primary" href="0"> Все товары </a>
+            {% endif %}
+        </div>
+
         {% for category in categories %}
 
         <div class="col-auto">
-            <button onclick="sendRequest(category.name)" class="save btn btn-primary"> {{category.name}} </button>
+            {% if category.pk == cat_selected %}
+            <a class="save btn btn-success" href="{{category.get_absolute_url}}"> {{category.name}} </a>
+            {% else %}
+            <a class="save btn btn-primary" href="{{category.get_absolute_url}}"> {{category.name}} </a>
+            {% endif %}
         </div>
 
         {% endfor %}
@@ -64,9 +71,8 @@
         <div class="product-card-text">
             <h5> {{product.name}} </h5>
             <h3> {{product.price}} руб. </h3>
-            <h6> {{product.description}}</h6>
-            <a class="btn btn-warning" href="blogpost/3/">
-                Добавить в карзину
+            <a class="btn btn-warning" href="{% url 'add_to_cart' %}?product={{ product.id }}">
+                Добавить в корзину
             </a>
         </div>
 
@@ -79,8 +85,3 @@
 
     {% endblock %}
 
-<script>
-    $.get('/category.html', { text: 'Текст' }, function (data) {
-        alert(data);
-    });
-</script>

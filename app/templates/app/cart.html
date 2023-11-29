@@ -1,6 +1,49 @@
 {% extends "app/layout.html" %}
+
 {% block content %}
 
+
+<div>{{title}} - Заказ #{{order.id}}</div>
+
+<table class="table tabel-bordered table-hover">
+    <thead>
+        <tr class="text-center">
+            <th>Изображение товара</th>
+            <th>Название</th>
+            <th>Количество</th>
+            <th>Цена за товар</th>
+            <th>Цена за все товары</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr class="align-middle text-center">
+            <th><img class="cataloge-img" src="{{item.product.image.url}}"></th>
+            <th>{{item.product.name}}</th>
+            <th>
+                <div>
+                    <a class="text-start btn" href="{% url 'quantity_plus' %}?item={{item.id}}">+</a>
+                    <div>{{item.quantity}}</div>
+                    <a class="text-end btn" href="{% url 'quantity_minus' %}?item={{item.id}}">-</a>
+                </div>
+            </th>
+            <th>{{item.product.price}}</th>
+            <th>{{item.price_quantity}}</th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="order_total">
+    <div class="order_total_content text-md-right">
+        <div class="order_total_title">Общая стоимость:</div>
+        <div class="order_total_amount">{{order.total_price}}</div>
+    </div>
+</div>
+<div class="cart_buttons">
+    <a href="{% url 'catalog' %}" class="btn btn-outline-warning">Продолжить покупки</a>
+    <a href="{% url 'deal_order' %}?order={{order.id}}" class="btn btn-success {% if order == None %} disabled {% endif %}">Оформить заказ</a>
+</div>
 
 
 {% endblock %}

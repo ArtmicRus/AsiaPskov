@@ -3,6 +3,7 @@ Definition of models.
 """
 
 from email.mime import image
+from email.policy import default
 from django.contrib.auth.forms import AdminPasswordChangeForm
 from django.db import models
 from django.contrib import admin
@@ -67,10 +68,10 @@ class Status(models.Model):
 admin.site.register(Status)
 
 class Order(models.Model):
-    user_id = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = "Покупатель")
+    user = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = "Покупатель")
     date = models.DateTimeField(default= datetime.now(), db_index=True, verbose_name= "Дата заказа")
     order_status = models.ForeignKey(Status, on_delete = models.CASCADE, verbose_name = "Статус заказа")
-    total_price = models.FloatField(verbose_name = "Итоговая сумма заказа")
+    total_price = models.DecimalField(default=0, max_digits=6, decimal_places=2,verbose_name = "Итоговая сумма заказа")
     
     class Meta:
         db_table = "Orderes"# имя таблицы для модели
@@ -84,7 +85,7 @@ class Category(models.Model):
     name = models.CharField(max_length=30, verbose_name="Название категории товаров")
     
     def get_absolute_url(self):
-        return reverse("сategories", args=[str(self.id)])
+        return reverse("catalog", args=[str(self.id)])
     def __str__(self):
         return self.name
 
@@ -98,10 +99,12 @@ admin.site.register(Category)
 class Product(models.Model):
     name = models.CharField(max_length=50, verbose_name="Название продукта")
     description = models.TextField(verbose_name="Краткое описание")
-    price = models.FloatField(verbose_name = "Цена")
+    price = models.DecimalField(max_digits=6, decimal_places=2,verbose_name = "Цена")
     image = models.FileField(default='temp.jpg', verbose_name = "Путь к картинке")
-    category_id = models.ForeignKey(Category, on_delete = models.CASCADE, verbose_name = "Категория товара")
+    category = models.ForeignKey(Category, on_delete = models.CASCADE, verbose_name = "Категория товара")
     
+    def get_absolute_url(self):
+        return reverse("product", args=[str(self.id)])
     def __str__(self):
         return self.name
 
@@ -113,14 +116,14 @@ class Product(models.Model):
 admin.site.register(Product)
 
 class OrderItem(models.Model):
-    order_id = models.ForeignKey(Order, on_delete = models.CASCADE, verbose_name = "Заказ")
-    product_id = models.ForeignKey(Product, on_delete = models.CASCADE, verbose_name = "Товар")
-    price_quantity = models.FloatField(verbose_name = "Цена за количество")
-    quantity = models.IntegerField(verbose_name = "Количество")
+    order = models.ForeignKey(Order, on_delete = models.CASCADE, verbose_name = "Заказ")
+    product = models.ForeignKey(Product, on_delete = models.CASCADE, verbose_name = "Товар")
+    price_quantity = models.DecimalField(default=0, max_digits=7, decimal_places=2,verbose_name = "Цена за количество")
+    quantity = models.IntegerField(default=0,verbose_name = "Количество")
     
     class Meta:
         db_table = "OrderItems" # имя таблицы для модели
-        ordering = ["order_id"] # Сортировка по Id заказа
+        ordering = ["order"] # Сортировка по Id заказа
         verbose_name = "Товар в заказе" 
         verbose_name_plural = "Товары в заказе" 
         

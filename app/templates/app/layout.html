@@ -11,7 +11,7 @@
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
     <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
 </head>
-<body>
+<body class="body-background">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container">
             <a href="/" class="navbar-brand">
@@ -24,26 +24,30 @@
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'category' %}">Каталог</a>
+                        <a class="nav-link" href="{% url 'catalog' %}">Каталог</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">О нас</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contact' %}">Контакт</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'links' %}">Полезные ресурсы</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            О нас
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{% url 'about' %}">О нас</a></li>
+                            <li><a class="dropdown-item" href="{% url 'contact' %}">Контакт</a></li>
+                            <li><a class="dropdown-item" href="{% url 'links' %}">Полезные ресурсы</a></li>
+                            <li><a class="dropdown-item" href="{% url 'feedback' %}">Обратная связь</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'blog' %}">Блог</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'feedback' %}">Обратная связь</a>
-                    </li>
                     {% if user.is_superuser %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'newpost' %}">Добавить статью</a>
+                    </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cart' %}">Корзина</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -51,7 +55,7 @@
             </div>
         </div>
     </nav>
-    <div class="body-content container">
+    <div class="container body-content">
         {% block content %}{% endblock %}
         <hr />
         <footer>
@@ -61,6 +65,7 @@
 
     <script src="{% static 'app/scripts/NewJs/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'app/scripts/respond.js' %}"></script>
+
     <script>
 
         function submit_mouseover() {
