@@ -53,7 +53,14 @@ h5 {
 }
 
 .body-background {
-    background: linear-gradient(90deg, #ffffff 1%,#ed2ef7 13%,#ed2ef7 40%,#207cca 69%,#84ebf4 100%);
+    /* Изначальный мой фон */
+    background: linear-gradient(90deg,#ed2ef7 13%,#ed2ef7 40%,#207cca 69%,#84ebf4 100%);
+    /* Фиол голубой фон */
+    /*    background: -webkit-linear-gradient(90deg, #962eec,#0090ff,#3abbe5);
+    background: linear-gradient(90deg, #962eec,#0090ff,#3abbe5);*/
+
+/*    background: -webkit-linear-gradient(90deg, #c511a8,#491174);
+    background: linear-gradient(90deg, #c511a8,#491174);*/
 }
 
 /*@media only screen and (max-width: 480px) {
@@ -110,3 +117,26 @@ h5 {
 }
 
 
+.ordertable {
+    background-color: rgb(147 51 234);
+}
+
+.ordertable2 {
+    background-color: rgb(192 132 252);
+}
+
+.cell-1 {
+    border-collapse: separate;
+    border-spacing: 0 4em;
+    background: #fff;
+    border-bottom: 5px solid transparent;
+    background-clip: padding-box;
+}
+
+.btn-block-size {
+    width: 30px;
+    height: auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}

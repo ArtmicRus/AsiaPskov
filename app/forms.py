@@ -3,6 +3,7 @@ Definition of forms.
 """
 
 from email import message
+from tkinter.ttk import Style
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -25,28 +26,41 @@ class BootstrapAuthenticationForm(AuthenticationForm):
     
 class FeedbackForm(forms.Form):
     """Форма обратной связи"""
-    name = forms.CharField(label='Ваше имя', min_length=3, max_length=20)
+    name = forms.CharField(label='Ваше имя', min_length=3, max_length=20,
+                           widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':"Артём"}))
     gender = forms.ChoiceField(label='Ваш пол', 
                                choices=[('1','Мужчина'),('2','Женщина')],
-                               widget=forms.RadioSelect,initial=1)
-    notice = forms.BooleanField(label='Вам нравится наш ассортимент суши?',
-                                required=True)
-    delivery = forms.ChoiceField(label='Сколько раз в месяц вызаказываете доставку еды?',
-                                 choices=(('1','1-3'),
-                                          ('2','4-6'),
-                                          ('3','7-9'),
-                                          ('4','Больше 9 раз в месяц')), initial=1)
+                               widget=forms.RadioSelect(attrs={'class': 'form-check form-check-inline'})
+                               ,initial=1)
+    age = forms.ChoiceField(label='Сколько вам лет?',
+                                choices=(('1','0-17'),
+                                        ('2','18-25'),
+                                        ('3','26-39'),
+                                        ('4','40+')),
+                                widget=forms.Select(attrs={'class': 'form-select form-select-lg'}),
+                                initial=1)
     message = forms.CharField(label='Напишите ваши замечания или советы для улучшения заведения',
-                             widget=forms.Textarea(attrs={'row':12,'cols':20}))
+                             widget=forms.Textarea(attrs={'row':12,'cols':20,'class': 'form-control', 'placeholder':"Мне не понравилось ... "}))
+    email = forms.EmailField(label='Ваш Email', min_length=3, max_length=40,
+                            widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder':"name@example.com"}))
+    
 
 class CommentForm (forms.ModelForm):
     class Meta:
         model = Comment # используемая модель
         fields = ('text',) # требуется заполнить только поле text
         labels = {'text': "Комментарий"} # метка к полю формы text
+        widgets ={
+            'text': forms.Textarea(attrs={'row':12,'cols':20, 'class': 'form-control'}),
+        }
         
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields = ('title','description','content','image')
         labels = {'title':"Заголовок",'description':"Краткое содержание",'content':"Полное содержание",'image':"Картинка"}
+        widgets ={
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder':"Название"}),
+            'description': forms.Textarea(attrs={'row':4,'cols':10, 'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'row':12,'cols':20, 'class': 'form-control'}),
+        }

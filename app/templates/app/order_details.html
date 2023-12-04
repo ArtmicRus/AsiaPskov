@@ -2,7 +2,6 @@
 
 {% block content %}
 
-{% if items|length != 0 %}
 
 <div>{{title}} - Заказ #{{order.id}}</div>
 
@@ -22,11 +21,9 @@
             <th><img class="cataloge-img" src="{{item.product.image.url}}"></th>
             <th>{{item.product.name}}</th>
             <th>
-                <div>
-                    <a class="text-start btn" href="{% url 'quantity_plus' %}?item={{item.id}}">+</a>
-                    <div>{{item.quantity}}</div>
-                    <a class="text-end btn" href="{% url 'quantity_minus' %}?item={{item.id}}">-</a>
-                </div>
+                <a class="text-start btn" href="{% url 'quantity_plus_order' %}?item={{item.id}}&order={{order.id}}">+</a>
+                <div>{{item.quantity}}</div>
+                <a class="text-end btn {% if item.quantity == 1 %} disabled {% endif %}" href="{% url 'quantity_minus_order' %}?item={{item.id}}&order={{order.id}}">-</a>
             </th>
             <th>{{item.product.price}}</th>
             <th>{{item.price_quantity}}</th>
@@ -42,14 +39,9 @@
     </div>
 </div>
 <div class="cart_buttons">
-    <a href="{% url 'catalog' %}" class="btn btn-outline-warning">Продолжить покупки</a>
-    <a href="{% url 'deal_order' %}?order={{order.id}}" class="btn btn-success {% if order == None %} disabled {% endif %}">Оформить заказ</a>
+    <a href="{% url 'orders_profile' %}" class="btn btn-outline-warning">Вернуться к заказам</a>
+    <a href="{% url 'order_delete' item=order.id %}" class="btn btn-danger btn-xs">Отменить заказ</a>
 </div>
 
-{% else %}
-<div class="text-center">
-    <div class="order_total_title"> Вы пока ничего не добавили в корзину :(</div>
-</div>
-{% endif %}
 
 {% endblock %}

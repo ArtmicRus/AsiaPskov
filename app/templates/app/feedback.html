@@ -4,20 +4,28 @@
 {% if form != None %}
 <h2>Отправьте пожалуйста заполненную анкету</h2>
 <br>
+
+
+
 <div>
-    <form method="post">
+    <form class="mb-3" method="post">
         {% csrf_token %}
-        <label for="{{ form.name.id_for_label }}">{{ form.name.label}}:</label>
-        {{ form.name }} <br /><br />
-        <label for="{{ form.gender.id_for_label }}">{{ form.gender.label}}:</label>
-        {{ form.gender }} <br /><br />
-        <label for="{{ form.notice.id_for_label }}">{{ form.notice.label}}:</label>
-        {{ form.notice }} <br /><br />
-        <label for="{{ form.delivery.id_for_label }}">{{ form.delivery.label}}:</label>
-        {{ form.delivery }} <br /><br />
+        <div class="mb-3">
+            <label class="form-label" for="{{ form.name.id_for_label }}">{{ form.name.label}}:</label>
+            {{ form.name }}
+        </div>
+        <div class="mb-6" >
+            <label for="{{ form.gender.id_for_label }}">{{ form.gender.label}}:</label>
+            {{ form.gender }}
+        </div>
+        <label for="{{ form.age.id_for_label }}">{{ form.age.label}}:</label>
+        {{ form.age }} <br />
         <label for="{{ form.message.id_for_label }}">{{ form.message.label}}:</label>
-        {{ form.message }} <br /><br />
+        {{ form.message }} <br />
+        <label for="{{ form.email.id_for_label }}">{{ form.email.label}}:</label>
+        {{ form.email }} <br />
         <input id="sub" type="submit" value="Отправить" />
+
     </form>
 </div>
 {% else %}
@@ -27,9 +35,9 @@
 <ul>
     <li><span>Имя:</span> {{ data.name }}</li>
     <li><span>Пол:</span> {{ data.gender }}</li>
-    <li><span>Ваше мнение по поводу нашего ассортимента:</span> {{ data.notice }}</li>
-    <li><span>О доставке:</span> {{ data.delivery }}</li>
-    <li><span>Ваши замечание или советы:</span> {{ data.message }}</li>
+    <li><span>Ваш возраст:</span> {{ data.age }}</li>
+    <li><span>Ваше сообщение:</span> {{ data.message }}</li>
+    <li><span>Ваш email:</span> {{ data.email }}</li>
 </ul>
 
 {% endif %}

@@ -60,12 +60,16 @@
     <Folder Include="AsiaPskov\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\favicon.ico" />
     <Content Include="app\static\app\content\NewCss\bootstrap.min.css" />
     <Content Include="app\static\app\content\Ланч сет.jpg" />
     <Content Include="app\static\app\content\Софт сет.jpg" />
     <Content Include="app\static\app\scripts\NewJs\bootstrap.bundle.min.js" />
     <Content Include="app\templates\app\cart.html" />
     <Content Include="app\templates\app\catalog.html" />
+    <Content Include="app\templates\app\orders_management.html" />
+    <Content Include="app\templates\app\orders_profile.html" />
+    <Content Include="app\templates\app\order_details.html" />
     <Content Include="media\banner1.png" />
     <Content Include="media\banner2.png" />
     <Content Include="media\banner3.png" />

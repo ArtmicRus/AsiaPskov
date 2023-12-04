@@ -1,0 +1,62 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+{% if items|length != 0 %}
+
+<h2 class="text-center">{{ title }}</h2>
+<div class="container mt-5">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-10">
+            <div class="rounded">
+                <div class="table-responsive table-borderless">
+                    <table class="table">
+                        <thead>
+                            <tr class="ordertable align-middle text-center">
+                                <th>Заказ #</th>
+                                <th>Статус</th>
+                                <th>Стоимость</th>
+                                <th>Покупатель</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body">
+                            {% for item in items %}
+                            <tr class="align-middle text-center cell-1 ordertable2">
+
+                                <td>{{item.id}}</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownStatuses" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{item.order_status}}
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownStatuses">
+                                            {% for status in statuses %}
+                                            <li><a class="dropdown-item" href="{% url 'switch_status_order' %}?status={{status.id}}&order={{item.id}}">{{status.name}}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>{{item.total_price}}</td>
+                                <td>{{item.user.username}}</td>
+                                <td><a href="{% url 'order_delete' item=item.id %}" class="btn btn-danger btn-xs">Отменить</a></td>
+                                <td><a href="{% url 'order_details' order=item.id%}" class="btn btn-primary btn-xs">Детали заказа</a></td>
+
+                            </tr>
+
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="text-center">
+    <div class="order_total_title"> В ресторане пока никто ничего не заказывал :(</div>
+</div>
+{% endif %}
+
+{% endblock %}

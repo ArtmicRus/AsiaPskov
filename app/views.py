@@ -3,6 +3,7 @@ Definition of views.
 """
 from asyncio.windows_events import NULL
 from datetime import datetime
+from re import A
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404, HttpRequest
 from django.urls import reverse
@@ -165,19 +166,16 @@ def feedback(request):
     assert isinstance(request, HttpRequest)
     data = None
     gender = {'1':'Мужчина','2':'Женщина'}
-    delivery = {'1':'1-3','2':'4-6','3':'7-9','4':'Больше 9 раз в месяц'}
+    age = {'1':'0-17','2':'18-25','3':'26-39','4':'40+'}
     if request.method=='POST':
         form = FeedbackForm(request.POST)
         if form.is_valid():
             data = dict()
             data['name'] = form.cleaned_data['name']
             data['gender'] = gender [form.cleaned_data['gender']]
-            if(form.cleaned_data['notice'] == True):
-                data['notice'] = 'Да'
-            else:
-                data['notice'] = 'Нет'
-            data['delivery']= delivery [form.cleaned_data['delivery']]
+            data['age'] = age [form.cleaned_data['age']]
             data['message'] = form.cleaned_data['message']
+            data['email'] = form.cleaned_data['email']
             form = None
     else:
         form = FeedbackForm()    
@@ -220,8 +218,8 @@ def registration(request):
 def catalog(request, cat_id = 0):
     """Renders the category page."""
     assert isinstance(request, HttpRequest)
-    categories = Category.objects.all() # запрос на выбор всех статей блога из модели
-    products = Product.objects.filter(category_id = cat_id)
+    categories = Category.objects.all() # запрос на выбор всех категорий товаров
+    products = Product.objects.filter(category_id = cat_id) # запрос на выбор продуктов конкретной категории
     
     if len(products) == 0:
         products = Product.objects.all()
@@ -243,10 +241,10 @@ def cart(request):
     assert isinstance(request, HttpRequest)
     current_order = Order.objects.filter(user=request.user, order_status_id=1).first()
     
-    if current_order == None:
-        items = None
-    else:
-        items = OrderItem.objects.filter(order=current_order)
+    if current_order == None: # Если заказа нет 
+        items = None # То карзина пуста
+    else: # Иначе ищем все предметы тукущего заказа
+        items = OrderItem.objects.filter(order=current_order) 
         
     return render(
         request,
@@ -259,9 +257,8 @@ def cart(request):
         }
     )
 
-def add_to_cart(request):
-
-    current_product = Product.objects.filter(id = request.GET.get('product')).first()
+def add_to_cart(request): #Добавление в корзину
+    current_product = Product.objects.filter(id = request.GET.get('product')).first() 
     current_order, order_status_id = Order.objects.get_or_create(user=request.user, order_status_id=1)
     if order_status_id:
         current_order.save()
@@ -278,7 +275,7 @@ def add_to_cart(request):
     assert isinstance(request, HttpRequest)
     return redirect(reverse('catalog'))
 
-def quantity_minus(request):
+def quantity_minus(request): # Минус товар в корзине
     current_item = OrderItem.objects.filter(id = request.GET.get('item')).first()
  
     current_item.quantity -= 1
@@ -290,7 +287,7 @@ def quantity_minus(request):
     
         return redirect(reverse('total_price'))
 
-def quantity_plus(request):
+def quantity_plus(request): # Плюс товар в корзине
     current_item = OrderItem.objects.filter(id = request.GET.get('item')).first()
  
     current_item.quantity += 1
@@ -299,7 +296,7 @@ def quantity_plus(request):
     
     return redirect(reverse('total_price'))
 
-def total_price(request):
+def total_price(request): # Общая цена товара в корзине
     current_order, order_status_id = Order.objects.get_or_create(user=request.user, order_status_id=1)
     order_list = OrderItem.objects.filter(order=current_order)
     current_order.total_price = 0
@@ -310,14 +307,101 @@ def total_price(request):
     return redirect(reverse('cart'))
 
 
-def delete_item(request, item):
+def delete_item(request, item): # Удаление товара из корзины
     current_item = OrderItem.objects.get(id = item).delete()
     return redirect(reverse('total_price'))
 
 
-def deal_order(request):
-    current_order = Order.objects.filter(user=request.user, order_status_id=1).first()
-    current_order.order_status_id = 2
-    current_order.save()
+def deal_order(request): # Оформление заказа
+    current_order = Order.objects.filter(user=request.user, order_status_id=1).first() # Ищем текущий заказ
+    current_order.order_status_id = 2 # Меняем его статус
+    current_order.save() 
     
     return redirect(reverse('cart'))
+
+def orders_profile(request): # Получение всех оформленных заказов текущего пользователя
+    """Renders the orders_profile page."""
+    current_orders = Order.objects.filter(user=request.user).exclude(order_status_id=1)
+        
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/orders_profile.html',
+        {
+            'title':'Мои заказы',
+            'items': current_orders, 
+            'year':datetime.now().year,
+        }
+    ) 
+
+def orders_management(request): # Получение всех заказон
+    all_orders = Order.objects.all().exclude(order_status_id=1)
+    all_statuses = Status.objects.all().exclude(id=1)
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/orders_management.html',
+        {
+            'title':'Все заказы',
+            'items': all_orders, 
+            'statuses': all_statuses,
+            'year':datetime.now().year,
+        }
+    ) 
+    
+def order_details(request, order): # Подробности о заказе
+    """Renders the order page."""
+    current_order = Order.objects.get(id = order)
+    items = OrderItem.objects.filter(order=current_order)
+        
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/order_details.html',
+        {
+            'title':'Заказ',
+            'order': current_order,
+            'items': items,  
+            'year':datetime.now().year,
+        }
+    ) 
+
+def quantity_minus_order(request): # Минус количество объектов в подробностях заказа
+    current_item = OrderItem.objects.filter(id = request.GET.get('item')).first()
+    current_order = request.GET.get('order')
+    current_item.quantity -= 1
+    current_item.price_quantity = current_item.product.price * current_item.quantity
+    current_item.save()
+    
+    return redirect(reverse('total_price_order', kwargs={'order': current_order}))
+
+def quantity_plus_order(request): # Плюс количество объектов в подробностях заказа
+    current_item = OrderItem.objects.filter(id = request.GET.get('item')).first()
+    current_order = request.GET.get('order')
+    current_item.quantity += 1
+    current_item.price_quantity = current_item.product.price * current_item.quantity
+    current_item.save()
+    
+    return redirect(reverse('total_price_order', kwargs={'order': current_order}))
+
+def total_price_order(request, order): # Пересчёт в подробностях заказа
+    order_list = OrderItem.objects.filter(order=order)
+    current_order = Order.objects.get(id=order)
+    current_order.total_price = 0
+    for item in order_list:
+        current_order.total_price += item.price_quantity
+
+    current_order.save()
+    return redirect(reverse('order_details', kwargs={'order': order}))
+
+def switch_status_order(request):
+    current_status = Status.objects.filter(id = request.GET.get('status')).first()
+    current_order = Order.objects.filter(id = request.GET.get('order')).first()
+    current_order.order_status = current_status;
+    current_order.save()
+    return redirect(reverse('orders_management'))
+
+
+def order_delete(request, item): # Удалить заказ из истории
+    Order.objects.get(id = item).delete()
+    return redirect(reverse('orders_profile'))
