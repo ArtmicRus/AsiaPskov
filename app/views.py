@@ -1,7 +1,7 @@
 ﻿"""
 Definition of views.
 """
-from asyncio.windows_events import NULL
+
 from datetime import datetime
 from re import A
 from django.shortcuts import render, get_object_or_404
