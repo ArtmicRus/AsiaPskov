@@ -50,6 +50,7 @@ urlpatterns = [
 
     # Корзина
     path('cart/', views.cart, name='cart'),
+    path('cart/<int:message_id>', views.cart, name='cart'),
     path('add-to-cart/', views.add_to_cart, name='add_to_cart'),
     path('quantity_minus/', views.quantity_minus, name='quantity_minus'),
     path('quantity_plus/', views.quantity_plus, name='quantity_plus'),

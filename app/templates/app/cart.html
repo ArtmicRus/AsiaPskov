@@ -23,9 +23,10 @@
             <th>{{item.product.name}}</th>
             <th>
                 <div>
-                    <a class="text-start btn" href="{% url 'quantity_plus' %}?item={{item.id}}">+</a>
+
+                    <a class="btn btn-warning col-md-3" href="{% url 'quantity_plus' %}?item={{item.id}}">+</a>
                     <div>{{item.quantity}}</div>
-                    <a class="text-end btn" href="{% url 'quantity_minus' %}?item={{item.id}}">-</a>
+                    <a class="btn btn-warning col-md-3" href="{% url 'quantity_minus' %}?item={{item.id}}">-</a>
                 </div>
             </th>
             <th>{{item.product.price}}</th>
@@ -48,7 +49,7 @@
 
 {% else %}
 <div class="text-center">
-    <div class="order_total_title"> Вы пока ничего не добавили в корзину :(</div>
+    <div class="order_total_title">{{message}}</div>
 </div>
 {% endif %}
 

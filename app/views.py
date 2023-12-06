@@ -2,8 +2,10 @@
 Definition of views.
 """
 
+from asyncio.windows_events import NULL
 from datetime import datetime
-from re import A
+from pyexpat.errors import messages
+from re import A, S
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404, HttpRequest
 from django.urls import reverse
@@ -236,11 +238,16 @@ def catalog(request, cat_id = 0):
         }
     )
 
-def cart(request):
+def cart(request, **kwargs):
     """Renders the cart page."""
     assert isinstance(request, HttpRequest)
     current_order = Order.objects.filter(user=request.user, order_status_id=1).first()
-    
+
+    if kwargs.__len__() == 1:
+        message = "Заказ успешно оформлен :)"
+    else:
+        message = "Вы пока ничего не добавили в корзину :("
+
     if current_order == None: # Если заказа нет 
         items = None # То карзина пуста
     else: # Иначе ищем все предметы тукущего заказа
@@ -252,7 +259,8 @@ def cart(request):
         {
             'title':'Корзина',
             'order': current_order,
-            'items': items,  
+            'items': items, 
+            'message': message,
             'year':datetime.now().year,
         }
     )
@@ -317,7 +325,7 @@ def deal_order(request): # Оформление заказа
     current_order.order_status_id = 2 # Меняем его статус
     current_order.save() 
     
-    return redirect(reverse('cart'))
+    return redirect(reverse('cart', kwargs={'message_id': 1}))
 
 def orders_profile(request): # Получение всех оформленных заказов текущего пользователя
     """Renders the orders_profile page."""
@@ -353,7 +361,7 @@ def order_details(request, order): # Подробности о заказе
     """Renders the order page."""
     current_order = Order.objects.get(id = order)
     items = OrderItem.objects.filter(order=current_order)
-        
+    
     assert isinstance(request, HttpRequest)
     return render(
         request,

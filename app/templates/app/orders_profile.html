@@ -27,7 +27,7 @@
                                 <td>{{item.id}}</td>
                                 <td>{{item.order_status}}</td>
                                 <td>{{item.total_price}}</td>
-                                <td><a href="{% url 'order_delete' item=item.id %}" class="btn btn-danger btn-xs">Отменить</a></td>
+                                <td><a href="{% url 'order_delete' item=item.id %}" class="btn btn-danger btn-xs {% if item.order_status.id > 2 %} btn-secondary disabled {% endif %}">Отменить</a></td>
                                 <td><a href="{% url 'order_details' order=item.id%}" class="btn btn-primary btn-xs">Детали заказа</a></td>
 
                             </tr>
