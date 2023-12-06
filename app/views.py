@@ -2,7 +2,6 @@
 Definition of views.
 """
 
-from asyncio.windows_events import NULL
 from datetime import datetime
 from pyexpat.errors import messages
 from re import A, S
