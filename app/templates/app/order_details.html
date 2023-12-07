@@ -21,9 +21,9 @@
             <th><img class="cataloge-img" src="{{item.product.image.url}}"></th>
             <th>{{item.product.name}}</th>
             <th>
-                <a class="btn {% if order.order_status.id > 2 %} btn-secondary disabled {% elif user.is_staff or user.is_superuser %} btn-warning {% endif %} col-md-3" href="{% url 'quantity_plus_order' %}?item={{item.id}}&order={{order.id}}">+</a>
+                <a class="btn btn-warning {% if order.order_status.id > 2 %} btn-secondary disabled {% endif %} col-md-3" href="{% url 'quantity_plus_order' %}?item={{item.id}}&order={{order.id}}">+</a>
                 <div>{{item.quantity}}</div>
-                <a class="btn {% if item.quantity == 1 or order.order_status.id > 2 %} btn-secondary disabled {% elif user.is_staff or user.is_superuser%} btn-warning {% endif %} col-md-3" href="{% url 'quantity_minus_order' %}?item={{item.id}}&order={{order.id}}">-</a>
+                <a class="btn btn-warning {% if item.quantity == 1 or order.order_status.id > 2 %} btn-secondary disabled {% endif %} col-md-3" href="{% url 'quantity_minus_order' %}?item={{item.id}}&order={{order.id}}">-</a>
             </th>
             <th>{{item.product.price}}</th>
             <th>{{item.price_quantity}}</th>
