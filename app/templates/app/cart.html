@@ -44,13 +44,31 @@
 </div>
 <div class="cart_buttons">
     <a href="{% url 'catalog' %}" class="btn btn-outline-warning">Продолжить покупки</a>
-    <a href="{% url 'deal_order' %}?order={{order.id}}" class="btn btn-success {% if order == None %} disabled {% endif %}">Оформить заказ</a>
+    <a id="liveToastBtn" href="{% url 'deal_order' %}?order={{order.id}}" class="btn btn-success {% if order == None %} disabled {% endif %}">Оформить заказ</a>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="..." class="rounded me-2" alt="...">
+            <strong class="me-auto">Bootstrap</strong>
+            <small>11 мин назад</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+        </div>
+        <div class="toast-body">
+            Привет, мир! Это тост-сообщение.
+        </div>
+    </div>
 </div>
 
 {% else %}
 <div class="text-center">
-    <div class="order_total_title">{{message}}</div>
+    <div class="order_total_title alert alert-success">{{message}}</div>
+    <br />
+    <div class="order_total_title alert alert-warning"> Перейдите в раздел "Мои заказы" чтобы увидеть подробности </div>
 </div>
 {% endif %}
+
+
 
 {% endblock %}

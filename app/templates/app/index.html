@@ -4,14 +4,15 @@
 
 <div id="MyCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
     <ol class="carousel-indicators">
-        <li type="button" data-bs-target="#MyCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></li>
+        <li type="button" data-bs-target="#MyCarousel" data-bs-slide-to="0" class="active" 
+            aria-current="true" aria-label="Slide 1"></li>
         <li type="button" data-bs-target="#MyCarousel" data-bs-slide-to="1" aria-label="Slide 2"></li>
         <li type="button" data-bs-target="#MyCarousel" data-bs-slide-to="2" aria-label="Slide 3"></li>
         <li type="button" data-bs-target="#MyCarousel" data-bs-slide-to="3" aria-label="Slide 4"></li>
     </ol>
-    <div class="carousel-inner " role="listbox">
+    <div class="carousel-inner" role="listbox">
         <div class="carousel-item active">
-            <img src=" {% static 'app/content/banner1.png'%} " class="d-block w-100 img-responsive" alt="Slide 1">
+            <img src=" {% static 'app/content/banner1.png'%} " class="d-block w-100 img-fluid" alt="Slide 1">
             <div class="carousel-caption d-none d-md-block">
                 <h5>История суши</h5>
                 <a class="btn btn-primary" href="blogpost/1/">
@@ -20,7 +21,7 @@
             </div>
         </div>
         <div class="carousel-item">
-            <img src="{% static 'app/content/banner2.png'%} " class="d-block w-100 img-responsive" alt="Slide 2">
+            <img src="{% static 'app/content/banner2.png'%} " class="d-block w-100 img-fluid" alt="Slide 2">
             <div class="carousel-caption d-none d-md-block">
                 <h5>Как правильно есть суши?</h5>
                 <a class="btn btn-primary" href="blogpost/3/">
@@ -28,8 +29,8 @@
                 </a>
             </div>
         </div>
-        <div class="carousel-item">
-            <img src="{% static 'app/content/banner3.png'%} " class="d-block w-100 img-responsive" alt="Slide 3">
+        <div class="carousel-item ">
+            <img src="{% static 'app/content/banner3.png'%} " class="d-block w-100 img-fluid" alt="Slide 3">
             <div class="carousel-caption d-none d-md-block">
                 <h5>История пиццы</h5>
                 <a class="btn btn-primary" href="blogpost/2/">
@@ -38,7 +39,7 @@
             </div>
         </div>
         <div class="carousel-item">
-            <img src="{% static 'app/content/banner4.png'%} " class="d-block w-100 img-responsive" alt="Slide 4">
+            <img src="{% static 'app/content/banner4.png'%} " class="d-block w-100 img-fluid" alt="Slide 4">
             <div class="carousel-caption d-none d-md-block">
                 <h5>Как готовить пиццу?</h5>
                 <a class="btn btn-primary" href="blogpost/4/">

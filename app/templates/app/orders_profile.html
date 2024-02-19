@@ -27,7 +27,34 @@
                                 <td>{{item.id}}</td>
                                 <td>{{item.order_status}}</td>
                                 <td>{{item.total_price}}</td>
-                                <td><a href="{% url 'order_delete' item=item.id %}" class="btn btn-danger btn-xs {% if item.order_status.id > 2 %} btn-secondary disabled {% endif %}">Отменить</a></td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-xs {% if item.order_status.id > 2 %} btn-secondary disabled {% endif %}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Отменить
+                                    </button>
+
+                                    <!-- Модальное окно -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel"> Уведомление! </h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Вы уверены что хотите отменить заказ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                                    <a href="{% url 'order_delete' item=item.id %}" 
+                                                       class="btn btn-danger btn-xs {% if item.order_status.id > 2 %} 
+                                                       btn-secondary disabled {% endif %}">Отменить заказ</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <!--<td><a href="{% url 'order_delete' item=item.id %}" class="btn btn-danger btn-xs {% if item.order_status.id > 2 %} btn-secondary disabled {% endif %}">Отменить</a></td>-->
                                 <td><a href="{% url 'order_details' order=item.id%}" class="btn btn-primary btn-xs">Детали заказа</a></td>
 
                             </tr>

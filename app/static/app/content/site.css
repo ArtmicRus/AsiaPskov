@@ -43,9 +43,6 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
-h5 {
-    color: navajowhite;
-}
 
 .carousel-img {
     width: 100%;
@@ -54,7 +51,7 @@ h5 {
 
 .body-background {
     /* Изначальный мой фон */
-    background: linear-gradient(90deg,#ed2ef7 13%,#ed2ef7 40%,#207cca 69%,#84ebf4 100%);
+/*    background: linear-gradient(90deg,#ed2ef7 13%,#ed2ef7 40%,#207cca 69%,#84ebf4 100%);*/
     /* Фиол голубой фон */
     /*    background: -webkit-linear-gradient(90deg, #962eec,#0090ff,#3abbe5);
     background: linear-gradient(90deg, #962eec,#0090ff,#3abbe5);*/
